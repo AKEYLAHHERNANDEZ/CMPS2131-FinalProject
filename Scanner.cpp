@@ -1,96 +1,60 @@
-#include <cctype>  
-#include <iostream>
-#include <vector>
-using namespace std;
+#include "Scanner.h"
+#include <cctype>
 
-enum TokenType {
-    NUMBER,
-    UNKNOWN,
-    END_OF_INPUT
-};
+Token::Token(TokenType typeOfToken, const string& valueOfToken)
+    : type(typeOfToken), value(valueOfToken) {}
 
-struct Token {
-    TokenType type;
-    string value;
+Scanner::Scanner(const string& input) : input(input), pos(0) {}
 
-    Token(TokenType typeOfToken, const string& valueOfToken) {
-        type = typeOfToken;
-        value = valueOfToken;
-    }
-};
-
-Token getNextToken(const string& input, size_t& pos);
-
-int main() {
-    string input;
-    cout << "Enter input: ";
-    getline(cin, input);
-
-    size_t position = 0;
-    vector<Token> tokens;
-
-    while (true) {
-        Token token = getNextToken(input, position);
-        if (token.type == END_OF_INPUT) {
-            break;
-        }
-        tokens.push_back(token);
-    }
-
-    for (const Token& token : tokens) {
-        cout << "Token(Type: ";
-        switch (token.type) {
-            case NUMBER:
-                cout << "NUMBER";
-                break;
-            case UNKNOWN:
-                cout << "UNKNOWN";
-                break;
-            default:
-                cout << "OTHER";
-        }
-        cout << ", Value: \"" << token.value << "\")\n";
-    }
-
-    return 0;
-}
-
-Token getNextToken(const string& input, size_t& pos) {
+Token Scanner::getNextToken() {
     while (pos < input.length() && isspace(input[pos])) {
-        pos++;
+        ++pos;
     }
 
     if (pos >= input.length()) {
         return Token(END_OF_INPUT, "");
     }
 
-    // Check for a negative number
-    char curr = input[pos]; 
-   if(curr == '-' && pos + 1 < input.length()
-      && isdigit(input[pos + 1])) { 
-          string number;
-          number += curr;
-          while(pos < input.length() && isdigit(input[pos])) {
-              number += input[pos];
-              pos++;
-           }
-           return Token(NUMBER, number);
-   }
+    char curr = input[pos];
 
-    // Check for a positive number
-    if (isdigit(input[pos])) {
-        string number;
+    // Handle numbers (including negative)
+    if (curr == '-' && pos + 1 < input.length() && isdigit(input[pos + 1])) {
+        string number = "-";
+        pos++;
         while (pos < input.length() && isdigit(input[pos])) {
-            number += input[pos];
-            pos++;
+            number += input[pos++];
         }
         return Token(NUMBER, number);
     }
 
+    if (isdigit(curr)) {
+        string number;
+        while (pos < input.length() && isdigit(input[pos])) {
+            number += input[pos++];
+        }
+        return Token(NUMBER, number);
+    }
+
+    // Handle operators and parentheses
+    if (curr == '+' || curr == '-' || curr == '*' || curr == '/') {
+        return Token(OPERATOR, string(1, input[pos++]));
+    }
+
+    if (curr == '(') {
+        return Token(LPAREN, string(1, input[pos++]));
+    }
+
+    if (curr == ')') {
+        return Token(RPAREN, string(1, input[pos++]));
+    }
+
+    // Handle unknown characters
     string unknown;
-    while (pos < input.length() && !isdigit(input[pos]) && !isspace(input[pos])) {
-        unknown += input[pos];
-        pos++;
+    while (pos < input.length() && !isdigit(input[pos]) &&
+           !isspace(input[pos]) && input[pos] != '+' && input[pos] != '-' &&
+           input[pos] != '*' && input[pos] != '/' &&
+           input[pos] != '(' && input[pos] != ')') {
+        unknown += input[pos++];
     }
     return Token(UNKNOWN, unknown);
 }

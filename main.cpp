@@ -1,29 +1,30 @@
+#include "Scanner.h"
 #include <iostream>
 #include <string>
-#include <cctype>
 using namespace std;
 
-void scanDigit(const string& input) {
-   if (input.length() != 1) {
-       cout << "Error: Input must be a single character." << endl;
-       return;
-  }
-   char c = input[0];
-    if (isdigit(c)) {
-      cout << "Valid digit: " << c << endl;
-    } else {
-       cout << "Error: '" << c << "' is not a valid digit (0-9)." << endl;
-    }
-}
-
-
 int main() {
-    string input;
-    cout << "Enter a single character: ";
-    cin >> input;
+   string input;
+   cout << "Enter expression: ";
+  getline(cin, input);
 
-    scanDigit(input);
+    Scanner scanner(input);
+    Token token = scanner.getNextToken();
+
+    while (token.type != END_OF_INPUT) {
+        cout << "Token(Type: ";
+        switch (token.type) {
+            case NUMBER:cout << "NUMBER"; break;
+            case OPERATOR: cout << "OPERATOR"; break;
+            case LPAREN: cout << "LPAREN"; break;
+            case RPAREN: cout << "RPAREN"; break;
+            case UNKNOWN: cout << "UNKNOWN"; break;
+            default:cout << "OTHER";
+        }
+        cout << ", Value: \"" << token.value << "\")\n";
+
+        token = scanner.getNextToken();
+    }
 
     return 0;
 }
-
