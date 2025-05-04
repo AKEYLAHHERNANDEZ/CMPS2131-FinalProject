@@ -12,16 +12,16 @@ int main() {
     Token token = scanner.getNextToken();
 
     while (token.type != END_OF_INPUT) {
-        cout << "Token(Type: ";
+        cout << "Token Type: ";
         switch (token.type) {
             case NUMBER:cout << "NUMBER"; break;
             case OPERATOR: cout << "OPERATOR"; break;
-            case LPAREN: cout << "LPAREN"; break;
-            case RPAREN: cout << "RPAREN"; break;
+            case LeftParen: cout << "LeftParen"; break;
+            case RightParen: cout << "RightParen"; break;
             case UNKNOWN: cout << "UNKNOWN"; break;
             default:cout << "OTHER";
         }
-        cout << ", Value: \"" << token.value << "\")\n";
+        cout << ", Value: \"" << token.value << "\" \n";
 
         token = scanner.getNextToken();
     }

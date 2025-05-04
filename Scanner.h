@@ -7,8 +7,8 @@ using namespace std;
 enum TokenType {
     NUMBER,
     OPERATOR,
-    LPAREN,
-    RPAREN,
+    LeftParen,
+    RightParen,
     UNKNOWN,
     END_OF_INPUT
 };

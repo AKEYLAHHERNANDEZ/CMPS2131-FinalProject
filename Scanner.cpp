@@ -41,11 +41,11 @@ Token Scanner::getNextToken() {
     }
 
     if (curr == '(') {
-        return Token(LPAREN, string(1, input[pos++]));
+        return Token(LeftParen, string(1, input[pos++]));
     }
 
     if (curr == ')') {
-        return Token(RPAREN, string(1, input[pos++]));
+        return Token(RightParen, string(1, input[pos++]));
     }
 
     // Handle unknown characters

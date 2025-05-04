@@ -6,13 +6,21 @@ Grammar:
 
 Breakdown:
 
-
-<Expr>
-<Term> - <Term> + <Term>
- <Factor> * <Factor> - <Term> + <Term>
- - <Factor> * <Factor> - <Factor> * <Factor> + <Factor>
- - <Number> * ( <Expr> ) - <Number> * <Number> + <Number>
- - 7 * ( <Term> + <Term> ) - 2 * 7 + 5
- - 7 * ( <Factor> + <Factor> ) - 2 * 7 + 5
- - 7 * ( <Number> + <Number> ) - 2 * 7 + 5
- - 7 * ( 5 + 7 ) - 2 * 7 + 5
+1.<Expr>
+2.  <Term> - <Term> + <Term>
+3.  <Factor> * <Factor> - <Term> + <Term>
+4.  -<Factor> * <Factor> - <Term> + <Term>
+5.  -<Number> * <Factor> - <Term> + <Term>
+6. - 7 * ( <Expr> ) - <Term> + <Term>
+7. - 7 * ( <Term> + <Term> ) - <Term> + <Term>
+8. - 7 * ( <Factor> + <Factor> ) - <Term> + <Term>
+9. - 7 * ( <Number> + <Number> ) - <Term> + <Term>
+10.  - 7 * ( <digit> + <Number> ) - <Term> + <Term>
+11.  - 7 * ( 5 + <digit> ) - <Term> + <Term>
+12.  - 7 * ( 5 + 7 ) - <Factor> * <Factor> + <Factor>
+13.  - 7 * ( 5 + 7 ) - <Number> * <Number> + <Number>
+14.  - 7 * ( 5 + 7 ) - 2 * <Number> + <Number>
+15.  - 7 * ( 5 + 7 ) - 2 * <digit> + <Number>
+16.  - 7 * ( 5 + 7 ) - 2 * 7 + <Number>
+17.  - 7 * ( 5 + 7 ) - 2 * 7 + <digit>
+18.  - 7 * ( 5 + 7 ) - 2 * 7 + 5
