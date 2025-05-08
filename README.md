@@ -1,5 +1,8 @@
 # CMPS2131-FinalProject
 
+Youtube Link: https://youtu.be/HeMw5InHZXM
+
+
 Scanner Purpose:
 This project implements a scanner that tokenizes arithmetic expressions. It identifies numbers, operators, parentheses, and unknown characters from a given input.
 

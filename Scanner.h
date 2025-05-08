@@ -32,7 +32,7 @@ public:
 
     // Returns the next token from the input
     Token getNextToken();
-//Declaration for the input and size
+//Declaration for the data members
 private:
     string input;  
     size_t pos;    
