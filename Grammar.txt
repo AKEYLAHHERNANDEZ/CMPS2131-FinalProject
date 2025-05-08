@@ -4,7 +4,7 @@ Grammar:
 <Factor>   ::= "-" <Factor> | "(" <Expr> ")" | <Number>
 <Number>   ::= <digit> | <digit> <Number>
 
-Breakdown:
+Breakdown of: -7(5+7)-2*7+5
 
 1.<Expr>
 2.  <Term> - <Term> + <Term>
